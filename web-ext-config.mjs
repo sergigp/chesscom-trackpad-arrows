@@ -9,6 +9,7 @@ export default {
     'test',
     'web-ext-artifacts',
     '*.zip',
+    'store-*.png',
     'README.md',
     'CLAUDE.md',
   ],
