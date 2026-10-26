@@ -1,0 +1,89 @@
+:root {
+  color-scheme: light dark;
+  --fg: #1f2328;
+  --muted: #59636e;
+  --bg: #ffffff;
+  --border: #d1d9e0;
+  --accent: #81b64c;
+  --warn: #9a6700;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #e6edf3;
+    --muted: #9198a1;
+    --bg: #1c1b19;
+    --border: #3d444d;
+    --warn: #d29922;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+main {
+  min-width: 260px;
+  max-width: 420px;
+  padding: 16px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.hint {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+fieldset {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+label:has(input:checked) {
+  border-color: var(--accent);
+}
+
+input[type="radio"] {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.warning {
+  margin: 0 0 12px;
+  color: var(--warn);
+}
+
+.status {
+  min-height: 1.45em;
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}

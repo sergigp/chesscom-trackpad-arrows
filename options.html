@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chess Option-Drag settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <h1>Chess Option-Drag</h1>
+    <p class="hint">Hold this key while clicking or dragging on the chess.com board to draw squares and arrows:</p>
+    <form id="form">
+      <fieldset id="modifiers">
+        <legend class="visually-hidden">Modifier key</legend>
+      </fieldset>
+    </form>
+    <p id="warning" class="warning" hidden>On macOS, Control + click is already a right-click, so the system menu may interfere. Option is recommended.</p>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <p class="hint">Changes apply immediately, no page reload needed.</p>
+  </main>
+  <script src="settings.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
