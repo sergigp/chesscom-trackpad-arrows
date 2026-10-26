@@ -10,7 +10,7 @@ Manifest V3 browser extension (Chrome + Firefox) for chess.com: holding a modifi
 
 - `npm test` — unit tests (`node:test`, loads scripts into a `vm` sandbox with fake DOM/`chrome.storage`).
 - `npm run lint` — `web-ext lint` (AMO's linter). `npm run check` = test + lint.
-- `npm run build` — zip into `web-ext-artifacts/`; excluded files listed in `web-ext-config.mjs`.
+- `npm run build` — zip to `chess-option-drag.zip` (gitignored); excluded files listed in `web-ext-config.mjs`.
 - `npm run icons` — regenerate `icons/*.png` from `scripts/make-icons.mjs`.
 - Manual: Chrome `chrome://extensions` → Load unpacked; Firefox ≥128 `about:debugging` → Load Temporary Add-on, or `npx web-ext run`.
 - Verify load: `document.documentElement.dataset.chessOptionDrag === 'loaded'` in page console. Set `DEBUG = true` in `content.js` for `[ChessOptionDrag]` logs (keep `false` for releases).

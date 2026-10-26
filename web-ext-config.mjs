@@ -8,6 +8,7 @@ export default {
     'scripts',
     'test',
     'web-ext-artifacts',
+    '*.zip',
     'README.md',
     'CLAUDE.md',
   ],

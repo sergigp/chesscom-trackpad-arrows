@@ -8,7 +8,7 @@
   "scripts": {
     "test": "node --test \"test/*.test.js\"",
     "lint": "web-ext lint",
-    "build": "web-ext build --overwrite-dest",
+    "build": "web-ext build --overwrite-dest --artifacts-dir . --filename chess-option-drag.zip",
     "icons": "node scripts/make-icons.mjs",
     "check": "npm test && npm run lint"
   },

@@ -18,7 +18,7 @@ No data is collected or transmitted. The only stored value is the chosen key, ke
 npm install        # dev tooling only (web-ext)
 npm test           # unit tests (node:test, no browser needed)
 npm run lint       # web-ext lint (same linter AMO runs)
-npm run build      # zip → web-ext-artifacts/
+npm run build      # → chess-option-drag.zip
 npm run icons      # regenerate icons/*.png
 npx web-ext run    # launch Firefox with the extension loaded
 ```
@@ -27,7 +27,7 @@ npx web-ext run    # launch Firefox with the extension loaded
 
 1. Bump `version` in `manifest.json` (and `package.json`).
 2. `npm run check && npm run build`
-3. Upload `web-ext-artifacts/chess_option-drag-<version>.zip` at https://addons.mozilla.org/developers/.
+3. Upload `chess-option-drag.zip` at https://addons.mozilla.org/developers/.
 4. Source code upload is not required: all code is unminified and unbundled.
 
 ## License
