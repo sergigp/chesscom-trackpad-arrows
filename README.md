@@ -1,6 +1,6 @@
 # Chess Option-Drag
 
-Browser extension (Firefox ≥128, Chrome ≥111) for chess.com: hold a modifier key (Option by default) while clicking/dragging on the board to draw square highlights and arrows — no right-click needed, so it works from a trackpad.
+Browser extension (Firefox ≥140, Chrome ≥111) for chess.com: hold a modifier key (Option by default) while clicking/dragging on the board to draw square highlights and arrows — no right-click needed, so it works from a trackpad.
 
 ![Arrows and highlights drawn with Option + drag on a chess.com board](store-1280x800.png)
 
