@@ -1,4 +1,5 @@
-// Generates icons/icon-{16,32,48,64,96,128}.png with no dependencies.
+// Generates icons/icon-{16,32,48,64,96,128}.png and the Chrome Web Store
+// small promo tile (store-promo-440x280.png) with no dependencies.
 // Run: node scripts/make-icons.mjs
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { deflateSync } from 'node:zlib';
@@ -52,18 +53,26 @@ const colorAt = (x, y) => {
   return (Math.floor(x * 2) + Math.floor(y * 2)) % 2 ? DARK : LIGHT;
 };
 
-function render(size) {
-  const px = Buffer.alloc(size * size * 4);
-  for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
+// Promo tile: icon centred on a dark-green background, in pixel coordinates.
+const PROMO_W = 440, PROMO_H = 280, PROMO_ICON = 200;
+const PROMO_BG = [74, 98, 52];
+const promoColorAt = (x, y) => {
+  const ox = (PROMO_W - PROMO_ICON) / 2, oy = (PROMO_H - PROMO_ICON) / 2;
+  return colorAt((x - ox) / PROMO_ICON, (y - oy) / PROMO_ICON) ?? PROMO_BG;
+};
+
+function render(w, h, colorFn) {
+  const px = Buffer.alloc(w * h * 4);
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
       let r = 0, g = 0, b = 0, a = 0;
       for (let sy = 0; sy < SS; sy++) {
         for (let sx = 0; sx < SS; sx++) {
-          const c = colorAt((x + (sx + 0.5) / SS) / size, (y + (sy + 0.5) / SS) / size);
+          const c = colorFn(x + (sx + 0.5) / SS, y + (sy + 0.5) / SS);
           if (c) { r += c[0]; g += c[1]; b += c[2]; a++; }
         }
       }
-      const i = (y * size + x) * 4;
+      const i = (y * w + x) * 4;
       if (a) {
         px[i] = Math.round(r / a);
         px[i + 1] = Math.round(g / a);
@@ -95,15 +104,15 @@ const chunk = (type, data) => {
   return Buffer.concat([len, body, crc]);
 };
 
-function png(size, rgba) {
+function png(w, h, rgba) {
   const ihdr = Buffer.alloc(13);
-  ihdr.writeUInt32BE(size, 0);
-  ihdr.writeUInt32BE(size, 4);
+  ihdr.writeUInt32BE(w, 0);
+  ihdr.writeUInt32BE(h, 4);
   ihdr[8] = 8;  // bit depth
   ihdr[9] = 6;  // RGBA
-  const raw = Buffer.alloc(size * (size * 4 + 1));
-  for (let y = 0; y < size; y++) {
-    rgba.copy(raw, y * (size * 4 + 1) + 1, y * size * 4, (y + 1) * size * 4);
+  const raw = Buffer.alloc(h * (w * 4 + 1));
+  for (let y = 0; y < h; y++) {
+    rgba.copy(raw, y * (w * 4 + 1) + 1, y * w * 4, (y + 1) * w * 4);
   }
   return Buffer.concat([
     Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
@@ -116,6 +125,9 @@ function png(size, rgba) {
 const outDir = new URL('../icons/', import.meta.url);
 mkdirSync(outDir, { recursive: true });
 for (const size of SIZES) {
-  writeFileSync(new URL(`icon-${size}.png`, outDir), png(size, render(size)));
+  const icon = render(size, size, (x, y) => colorAt(x / size, y / size));
+  writeFileSync(new URL(`icon-${size}.png`, outDir), png(size, size, icon));
 }
-console.log('wrote', SIZES.map((s) => `icon-${s}.png`).join(', '));
+const promo = render(PROMO_W, PROMO_H, promoColorAt);
+writeFileSync(new URL('../store-promo-440x280.png', import.meta.url), png(PROMO_W, PROMO_H, promo));
+console.log('wrote', [...SIZES.map((s) => `icon-${s}.png`), 'store-promo-440x280.png'].join(', '));
