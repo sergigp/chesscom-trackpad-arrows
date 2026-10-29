@@ -1,9 +1,9 @@
-// Generates icons/icon-{16,32,48,96,128}.png with no dependencies.
+// Generates icons/icon-{16,32,48,64,96,128}.png with no dependencies.
 // Run: node scripts/make-icons.mjs
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { deflateSync } from 'node:zlib';
 
-const SIZES = [16, 32, 48, 96, 128];
+const SIZES = [16, 32, 48, 64, 96, 128];
 const SS = 4; // supersampling factor per axis
 
 const LIGHT = [238, 238, 210];
